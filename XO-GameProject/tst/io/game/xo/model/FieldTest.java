@@ -17,14 +17,39 @@ public class FieldTest {
 	}
 
 	@Test
-	public void testGetFigureWhenFigureIsNotSet() {
+	public void testGetFigureWhenXIsLessThanZero() {
 		final Field field = new Field();
-		final Point inputPoint = new Point(0, 0);
+		final Point inputPoint = new Point(-1, 0);
 		try {
 			field.getFigure(inputPoint);
 			fail();
-		} catch (final InvalidePointException e) {
-			
-		}
+		} catch (final InvalidePointException e) {}
+	}
+	@Test
+	public void testGetFigureWhenYIsLessThanZero() {
+		final Field field = new Field();
+		final Point inputPoint = new Point(0, -1);
+		try {
+			field.getFigure(inputPoint);
+			fail();
+		} catch (final InvalidePointException e) {}
+	}
+	@Test
+	public void testGetFigureWhenXIsMoreThanNorm() {
+		final Field field = new Field();
+		final Point inputPoint = new Point(field.getSize() + 1, 0);
+		try {
+			field.getFigure(inputPoint);
+			fail();
+		} catch (final InvalidePointException e) {}
+	}
+	@Test
+	public void testGetFigureWhenYIsMoreThanNorm() {
+		final Field field = new Field();
+		final Point inputPoint = new Point(0, field.getSize() + 1);
+		try {
+			field.getFigure(inputPoint);
+			fail();
+		} catch (final InvalidePointException e) {}
 	}
 }
