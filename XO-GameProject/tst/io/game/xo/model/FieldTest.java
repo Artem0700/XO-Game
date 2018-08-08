@@ -6,6 +6,8 @@ import java.awt.Point;
 
 import org.junit.Test;
 
+import exceptions.InvalidePointException;
+
 public class FieldTest {
 
 	@Test
@@ -15,13 +17,14 @@ public class FieldTest {
 	}
 
 	@Test
-	public void testSetFigure() {
+	public void testGetFigureWhenFigureIsNotSet() {
 		final Field field = new Field();
 		final Point inputPoint = new Point(0, 0);
-		final Figure inputFigure = Figure.O;	
-		field.setFigure(inputPoint, inputFigure);
-		final Figure actualFigure = field.getFigure(inputPoint);
-		assertEquals(inputFigure, actualFigure);
+		try {
+			field.getFigure(inputPoint);
+			fail();
+		} catch (final InvalidePointException e) {
+			
+		}
 	}
-
 }
