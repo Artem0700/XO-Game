@@ -19,12 +19,9 @@ public class Field {
 		}
 		return field[point.x][point.y];
 	}
-	public void setFigure(final Point point, final Figure figure) throws InvalidePointException, AlreadyOccupiedException {
+	public void setFigure(final Point point, final Figure figure) throws InvalidePointException {
 		if (!checkPoint(point)) {
 			throw new InvalidePointException();
-		}
-		if (field [point.x][point.y] != null) {
-			throw new AlreadyOccupiedException();
 		}
 		field [point.x][point.y] = figure;
 	}
