@@ -7,7 +7,7 @@ public class WinnerController {
 	public Figure getWinner(final Field field) {
 		try {
 				for (int i = 0; i < 3; i++) {
-					if (check(field, new Point(i, 0), new Point(i, 1), new Point(i, 2))) {
+					if (check(field, new Point(i, 0), p -> new Point ) {
 						return field.getFigure(new Point(i, 0));
 					}
 				}
@@ -27,17 +27,25 @@ public class WinnerController {
 		}
 		return null;
 	}
-	private boolean check(final Field field, final Point p1, final Point p2, final Point p3) {
+	private boolean check(final Field field, final Point currentPoint, final IPointGenerator pointGenerator) {
+		final Figure currentFigure;
+		final Figure nextFigure;
+		final Point nextPoint = pointGenerator.next(currentPoint);
 		try {
-			if (field.getFigure(p1) == null){
-				return false;
-			}
-			if (field.getFigure(p1) == field.getFigure(p2) && field.getFigure(p1) == field.getFigure(p3)) {
-				return true;
-			}
-		} catch (InvalidePointException e) {
-			e.printStackTrace();
+			currentFigure = field.getFigure(currentPoint);
+			nextFigure = field.getFigure(nextPoint);
+		} catch (final InvalidePointException e) {
+			return true;
 		}
-		return false;
+		if (currentFigure == null) {
+			return false;
+		}
+		if (currentFigure != nextFigure) {
+			return false;
+		}
+		return check(field, nextPoint, pointGenerator);
+	}
+	private interface IPointGenerator {
+		Point next(final Point point);
 	}
 }
